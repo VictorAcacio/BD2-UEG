@@ -1,0 +1,40 @@
+# Propriedades ACID no Sistema de Matrículas
+
+O código desenvolvido realiza operações de matrícula utilizando transações no banco de dados MySQL através do Python. Com isso, é possível observar na prática as propriedades ACID: atomicidade, consistência, durabilidade e isolamento.
+
+## Atomicidade
+
+A atomicidade garante que uma transação seja executada por completo ou não seja executada. No código, isso aparece no uso dos comandos `commit()` e `rollback()`.
+
+Quando todas as operações ocorrem corretamente, o `commit()` confirma a transação e os dados são salvos no banco. Porém, se ocorrer algum erro durante o processo (como inserir um curso inexistente), o `rollback()` é acionado, desfazendo todas as operações realizadas naquela transação.
+
+Dessa forma, evita-se que dados sejam inseridos parcialmente, garantindo que tudo aconteça de forma completa ou nada seja aplicado.
+
+---
+
+## Consistência
+
+A consistência garante que o banco de dados permaneça em um estado válido, respeitando todas as regras definidas.
+
+No código, isso é aplicado através das verificações feitas antes da inserção de uma matrícula, como a validação se o aluno e o curso existem. Além disso, foi identificada e tratada a duplicidade de registros, garantindo que uma mesma matrícula não seja inserida mais de uma vez.
+
+Essas validações impedem que dados inválidos sejam gravados, mantendo a integridade do banco.
+
+---
+
+## Durabilidade
+
+A durabilidade garante que, após a confirmação de uma transação, os dados não serão perdidos.
+
+No código, isso acontece quando o `commit()` é executado. Após essa confirmação, a matrícula é gravada de forma permanente no banco de dados. Mesmo que o sistema seja encerrado ou ocorra alguma falha posteriormente, os dados continuam armazenados.
+
+---
+
+## Isolamento
+
+O isolamento é importante em sistemas onde múltiplos usuários acessam o banco ao mesmo tempo.
+
+Embora o código não simule diretamente múltiplos usuários, essa propriedade seria essencial para evitar problemas como duas pessoas realizarem a mesma matrícula simultaneamente ou acessarem dados ainda não confirmados por outra transação.
+
+O isolamento garante que cada transação seja executada de forma independente, evitando interferência entre operações concorrentes e mantendo a integridade dos dados.
+
